@@ -4,9 +4,7 @@ A modern, responsive **FastAPI + vanilla JavaScript** dashboard for healthcare f
 
 ## Quick start
 
-**Windows:** Double-click `Start_Windows.bat` to create a virtual environment, install missing requirements, and open the dashboard. **Linux/macOS:** Run `bash start_linux_mac.sh`. You can also use the manual commands below.
 
-Requires **Python 3.10+** and an internet connection if you want to fetch real Overpass data.
 
 ```bash
 # From this folder (where server.py lives):
