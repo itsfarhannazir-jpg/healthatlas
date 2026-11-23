@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="description" content="Pakistan Health Atlas: explore crowdsourced OpenStreetMap healthcare facility data, data quality, and regional patterns." />
+  <title>Pakistan Health Atlas | Data Intelligence</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon-sprite" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-hospital" viewBox="0 0 24 24"><path d="M4 21V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v15M2 21h20M9 21v-5h6v5M12 7v6m-3-3h6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17v-5M13 17V7M18 17v-8"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5Zm-9 10 9 5 9-5M3 17l9 5 9-5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M5.5 9A7 7 0 0 1 18 6l2 1M4 17l2 1A7 7 0 0 0 18.5 15"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v7c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12v7c0 1.7 4 3 9 3s9-1.3 9-3v-7"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2ZM14 2v6h5M8 13h8M8 17h8"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7l0-7Z"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-hospital"/></svg></div>
+        <div><div class="brand-title">Health<span>Atlas</span></div><div class="brand-caption">PAKISTAN · OSM DATA</div></div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <p class="nav-label">WORKSPACE</p>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <button class="nav-link active" data-view="overview"><svg class="icon"><use href="#i-grid"/></svg><span>Overview</span></button>
+        <button class="nav-link" data-view="facilities"><svg class="icon"><use href="#i-hospital"/></svg><span>Facilities explorer</span></button>
+        <button class="nav-link" data-view="insights"><svg class="icon"><use href="#i-chart"/></svg><span>Data insights</span></button>
+        <button class="nav-link" data-view="pipeline"><svg class="icon"><use href="#i-layers"/></svg><span>ETL pipeline</span><span class="nav-dot"></span></button>
+      </nav>
+      <p class="nav-label secondary-label">RESOURCES</p>
+      <div class="main-nav">
+        <a class="nav-link" href="/docs" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-file"/></svg><span>API documentation</span><svg class="icon end-icon"><use href="#i-chevron"/></svg></a>
+        <a class="nav-link" href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-pin"/></svg><span>OpenStreetMap</span><svg class="icon end-icon"><use href="#i-chevron"/></svg></a>
+      </div>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-note">
+        <div class="sidebar-note-icon"><svg class="icon"><use href="#i-shield"/></svg></div>
+        <strong>Data with context.</strong>
+        <p>Mapped facilities are not a complete healthcare census. Interpret with care.</p>
+      </div>
+      <div class="sidebar-footer"><span class="live-circle"></span><span>Local analytics workspace</span><span class="version">v1.0</span></div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div class="top-left">
+          <button class="mobile-menu icon-button" id="menuToggle" aria-label="Toggle menu"><svg class="icon"><use href="#i-menu"/></svg></button>
+          <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong id="pageCrumb">Overview</strong></div>
+        </div>
+        <div class="top-right">
+          <span class="date-label" id="todayLabel"></span>
+          <div class="status-pill"><span class="live-circle"></span><span id="apiStatus">Connected</span></div>
+          <button class="icon-button" id="refreshButton" aria-label="Refresh data" title="Refresh dashboard"><svg class="icon"><use href="#i-refresh"/></svg></button>
+        </div>
+      </header>
+
+      <main class="page-content">
+        <div class="job-banner hidden" id="jobBanner" role="status" aria-live="polite">
+          <div class="job-spinner" id="jobSpinner"></div>
+          <div class="job-banner-content"><strong id="jobTitle">Running pipeline</strong><span id="jobDescription">Preparing task...</span></div>
+          <span id="jobPercent">0%</span>
+          <div class="job-progress"><div id="jobProgressFill"></div></div>
+        </div>
+
+        <section id="view-overview" class="view active-view" aria-label="Dashboard overview">
+          <div class="page-heading"><div><div class="eyebrow">DATA INTELLIGENCE / OVERVIEW</div><h1>Healthcare at a glance<span class="heading-point">.</span></h1><p>Explore healthcare facilities mapped across Pakistan's regions.</p></div><button class="btn btn-outline" data-action="download-csv"><svg class="icon"><use href="#i-download"/></svg> Export CSV</button></div>
+
+          <div class="hero">
+            <div class="hero-copy">
+              <div class="hero-kicker"><span></span> OPEN DATA · MEANINGFUL INSIGHTS</div>
+              <h2>Better data.<br /><em>Clearer decisions.</em></h2>
+              <p>From raw OpenStreetMap records to structured, searchable insights. Discover the patterns behind Pakistan's mapped healthcare landscape.</p>
+              <div class="hero-actions"><button class="btn btn-light" data-action="go-pipeline">Run data pipeline <svg class="icon"><use href="#i-arrow"/></svg></button><button class="btn btn-hero-ghost" data-view="facilities">Explore records</button></div>
+            </div>
+            <div class="hero-graphic" aria-hidden="true">
+              <div class="orbit orbit-outer"></div><div class="orbit orbit-inner"></div>
+              <div class="orbit-dot orbit-dot-one"></div><div class="orbit-dot orbit-dot-two"></div>
+              <div class="globe-ring"><div class="globe-shine"></div><span class="globe-number">07</span><span class="globe-text">REGIONS<br />IN FOCUS</span></div>
+              <div class="floating-chip chip-one"><span class="chip-dot"></span> Open-source data</div>
+              <div class="floating-chip chip-two"><svg class="icon"><use href="#i-chart"/></svg> Mapped coverage</div>
+            </div>
+          </div>
+
+          <div class="section-head"><div><span class="section-index">01 /</span><h3>Key indicators</h3></div><span class="section-sub">From your local SQLite database</span></div>
+          <div class="stat-grid">
+            <div class="stat-card"><div class="stat-icon teal"><svg class="icon"><use href="#i-hospital"/></svg></div><span class="stat-caption">Mapped facilities</span><strong id="statTotal" class="stat-value">—</strong><span class="stat-footer"><span class="tiny-dot teal-dot"></span> Valid records in database</span></div>
+            <div class="stat-card"><div class="stat-icon blue"><svg class="icon"><use href="#i-pin"/></svg></div><span class="stat-caption">Regions with records</span><strong id="statRegions" class="stat-value">—</strong><span class="stat-footer"><span class="tiny-dot blue-dot"></span> Out of 7 configured regions</span></div>
+            <div class="stat-card"><div class="stat-icon purple"><svg class="icon"><use href="#i-database"/></svg></div><span class="stat-caption">Mapped per 100k</span><strong id="statRate" class="stat-value">—</strong><span class="stat-footer"><span class="tiny-dot purple-dot"></span> Based on reference populations</span></div>
+            <div class="stat-card"><div class="stat-icon orange"><svg class="icon"><use href="#i-shield"/></svg></div><span class="stat-caption">City tag coverage</span><strong id="statQuality" class="stat-value">—</strong><span class="stat-footer"><span class="tiny-dot orange-dot"></span> Records with a city value</span></div>
+          </div>
+
+          <div class="dashboard-charts">
+            <article class="panel panel-types"><div class="panel-head"><div><div class="panel-overline">COMPOSITION</div><h3>Facilities by type</h3></div><span class="panel-pill">Distribution</span></div><div id="typeChart" class="types-chart"><div class="placeholder-bars">No records loaded yet.</div></div></article>
+            <article class="panel panel-ownership"><div class="panel-head"><div><div class="panel-overline">CLASSIFICATION</div><h3>Ownership signals</h3></div><button class="help-icon" title="Ownership may be inferred from tags or name keywords." aria-label="About ownership signals"><svg class="icon"><use href="#i-info"/></svg></button></div><div class="ownership-body"><div class="donut" id="ownershipDonut"><div class="donut-hole"><strong id="donutTotal">—</strong><span>FACILITIES</span></div></div><div id="ownershipLegend" class="donut-legend"></div></div><p class="card-caveat">Classification is approximate. Unknown records are kept separate.</p></article>
+          </div>
+
+          <div class="two-panels">
+            <article class="panel region-panel"><div class="panel-head"><div><div class="panel-overline">GEOGRAPHY</div><h3>Regional mapping</h3></div><button class="text-link" data-view="insights">View insights <svg class="icon"><use href="#i-arrow"/></svg></button></div><div class="region-list" id="overviewRegions"></div></article>
+            <article class="panel data-health-panel"><div class="panel-head"><div><div class="panel-overline">TRUST & TRANSPARENCY</div><h3>Data quality</h3></div><span class="shield-chip"><svg class="icon"><use href="#i-shield"/></svg></span></div><p class="panel-description">A quick look at how complete the available OpenStreetMap records are.</p><div id="qualityBars" class="quality-bars"></div><div class="note-mini"><svg class="icon"><use href="#i-info"/></svg><p>Low mapping coverage can reflect missing OSM contributions, not necessarily a shortage of healthcare services.</p></div></article>
+          </div>
+
+          <article class="panel table-panel"><div class="panel-head"><div><div class="panel-overline">DIRECTORY PREVIEW</div><h3>Recently explored facilities</h3></div><button class="text-link" data-view="facilities">View all records <svg class="icon"><use href="#i-arrow"/></svg></button></div><div class="table-scroller"><table><thead><tr><th>Facility</th><th>Region</th><th>Type</th><th>Ownership</th></tr></thead><tbody id="previewRows"></tbody></table></div></article>
+        </section>
+
+        <section id="view-facilities" class="view" aria-label="Facility explorer">
+          <div class="page-heading"><div><div class="eyebrow">DIRECTORY / EXPLORE</div><h1>Facility explorer<span class="heading-point">.</span></h1><p>Search, filter and browse validated facility records.</p></div><button class="btn btn-outline" data-action="download-csv"><svg class="icon"><use href="#i-download"/></svg> Export CSV</button></div>
+          <div class="directory-banner"><div class="directory-banner-icon"><svg class="icon"><use href="#i-search"/></svg></div><div><strong>Find healthcare records, faster.</strong><p>Search facility names, cities and regions. Use filters to narrow the results.</p></div><span id="resultsCounter">0 records</span></div>
+          <article class="panel directory-panel"><div class="filters-row"><label class="search-field"><svg class="icon"><use href="#i-search"/></svg><input type="search" id="facilitySearch" placeholder="Search by name, city or region..." autocomplete="off" /></label><select id="provinceFilter" aria-label="Filter by region"><option value="">All regions</option></select><select id="typeFilter" aria-label="Filter by facility type"><option value="">All types</option><option value="hospital">Hospitals</option><option value="clinic">Clinics</option><option value="pharmacy">Pharmacies</option><option value="doctors">Doctors</option><option value="dentist">Dentists</option><option value="laboratory">Laboratories</option><option value="other">Other</option></select><select id="ownerFilter" aria-label="Filter by ownership"><option value="">All ownership</option><option value="public">Public</option><option value="private">Private</option><option value="unknown">Unknown</option></select><button class="btn btn-clear" id="clearFilters">Clear</button></div><div class="table-scroller"><table class="directory-table"><thead><tr><th>Facility</th><th>Region</th><th>Type</th><th>Ownership</th><th>Coordinates</th></tr></thead><tbody id="directoryRows"></tbody></table></div><div class="pagination"><span id="pageSummary">0 results</span><div><button id="prevPage" class="page-button">Previous</button><span id="pageNumber" class="current-page">1 / 1</span><button id="nextPage" class="page-button">Next</button></div></div></article>
+        </section>
+
+        <section id="view-insights" class="view" aria-label="Data insights">
+          <div class="page-heading"><div><div class="eyebrow">ANALYSIS / QUALITY</div><h1>Data insights<span class="heading-point">.</span></h1><p>Patterns, coverage comparisons and the limits behind the numbers.</p></div><button class="btn btn-outline" data-action="download-report"><svg class="icon"><use href="#i-download"/></svg> Download report</button></div>
+          <div class="insight-warning"><svg class="icon"><use href="#i-info"/></svg><div><strong>Mapped coverage ≠ actual access to healthcare.</strong><p>OpenStreetMap data is volunteer-contributed and incomplete. Rankings below show the distribution of tagged places, not actual healthcare availability or underserved populations.</p></div></div>
+          <div class="insights-grid"><article class="panel"><div class="panel-head"><div><div class="panel-overline">REGIONAL COMPARISON</div><h3>Mapped facilities per 100k</h3></div></div><div id="rateChart" class="rate-chart"></div></article><article class="panel"><div class="panel-head"><div><div class="panel-overline">DATA QUALITY</div><h3>Field completeness</h3></div></div><p class="panel-description">Completeness of fields stored in the validated facility records.</p><div id="insightsQuality" class="quality-bars insights-quality"></div><div class="quality-narrative">Records missing a required name or valid coordinates are rejected during cleaning and can be examined via the API.</div></article></div>
+          <article class="panel regional-table-panel"><div class="panel-head"><div><div class="panel-overline">ALL REGIONS</div><h3>Region-by-region details</h3></div><span class="panel-pill">Reference populations</span></div><div class="table-scroller"><table><thead><tr><th>Region</th><th>Mapped facilities</th><th>Reference population</th><th>Mapped per 100k</th></tr></thead><tbody id="regionalTable"></tbody></table></div></article>
+          <div class="insights-footnote"><svg class="icon"><use href="#i-shield"/></svg><span>Ownership labels may be inferred from facility names. Population values are configured reference estimates, not live official updates.</span></div>
+        </section>
+
+        <section id="view-pipeline" class="view" aria-label="Data pipeline">
+          <div class="page-heading"><div><div class="eyebrow">DATA OPERATIONS / WORKFLOW</div><h1>Your data pipeline<span class="heading-point">.</span></h1><p>Fetch, validate, store and analyze real OpenStreetMap records.</p></div><button class="btn btn-primary" data-action="all"><svg class="icon"><use href="#i-bolt"/></svg> Run full pipeline</button></div>
+          <div class="pipeline-intro"><div class="pipeline-intro-content"><div class="hero-kicker"><span></span> FIVE-STEP ETL WORKFLOW</div><h2>From open data to insight.</h2><p>Run the stages independently or execute the complete workflow. Data fetching requires internet and a responsive Overpass API.</p><label for="pipelineProvince" class="region-label">CHOOSE A REGION</label><select id="pipelineProvince"><option value="">All seven regions</option></select></div><div class="pipeline-art" aria-hidden="true"><div class="pipeline-node">JSON</div><div class="pipeline-connector"></div><div class="pipeline-node center-node">SQL</div><div class="pipeline-connector"></div><div class="pipeline-node">EDA</div></div></div>
+          <div class="section-head"><div><span class="section-index">02 /</span><h3>Workflow stages</h3></div><span class="section-sub">Actions run in a background worker</span></div>
+          <div class="pipeline-steps"><div class="step-card"><span class="step-number">01</span><div class="step-icon"><svg class="icon"><use href="#i-download"/></svg></div><div class="step-copy"><h3>Fetch raw data</h3><p>Download healthcare features from OpenStreetMap Overpass and keep the JSON snapshots.</p><span class="step-meta" id="rawIndicator">No cached regions</span></div><button class="step-action" data-action="fetch">Fetch <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+            <div class="step-card"><span class="step-number">02 + 03</span><div class="step-icon"><svg class="icon"><use href="#i-shield"/></svg></div><div class="step-copy"><h3>Clean, validate & save</h3><p>Normalize fields with pandas, validate with Pydantic, quarantine invalid rows, and UPSERT to SQLite + CSV.</p><span class="step-meta">Validation + persistence</span></div><button class="step-action" data-action="clean">Process <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+            <div class="step-card"><span class="step-number">04</span><div class="step-icon"><svg class="icon"><use href="#i-chart"/></svg></div><div class="step-copy"><h3>Run exploratory analysis</h3><p>Generate breakdowns, regional mapped rates, data quality statistics and PNG charts.</p><span class="step-meta">EDA + visualizations</span></div><button class="step-action" data-action="analyze">Analyze <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+            <div class="step-card"><span class="step-number">05</span><div class="step-icon"><svg class="icon"><use href="#i-file"/></svg></div><div class="step-copy"><h3>Generate findings report</h3><p>Write a Markdown report with charts, assumptions, limitations and analysis results.</p><span class="step-meta">REPORT.md</span></div><button class="step-action" data-action="report">Generate <svg class="icon"><use href="#i-arrow"/></svg></button></div></div>
+          <div class="pipeline-bottom"><article class="panel"><div class="panel-head"><div><div class="panel-overline">PIPELINE ACTIVITY</div><h3>Latest task</h3></div><span class="panel-pill" id="taskBadge">Idle</span></div><div id="taskDetails" class="task-details">No task has run in this server session. Choose a workflow stage to begin.</div></article><article class="panel"><div class="panel-head"><div><div class="panel-overline">OUTPUTS</div><h3>Generated files</h3></div></div><div class="output-list"><div><svg class="icon"><use href="#i-database"/></svg><span>Raw JSON files</span><strong id="outputRaw">0 regions</strong></div><div><svg class="icon"><use href="#i-file"/></svg><span>Clean CSV</span><strong id="outputCsv">Not created</strong></div><div><svg class="icon"><use href="#i-chart"/></svg><span>EDA charts</span><strong id="outputCharts">Not created</strong></div><div><svg class="icon"><use href="#i-file"/></svg><span>Findings report</span><strong id="outputReport">Not created</strong></div></div></article></div>
+        </section>
+
+        <footer class="site-footer"><span>© <span id="footerYear"></span> Pakistan Health Atlas · Built with FastAPI, pandas & SQLite.</span><span>Data: © OpenStreetMap contributors · ODbL</span></footer>
+      </main>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
